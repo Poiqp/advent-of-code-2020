@@ -53,6 +53,3 @@ def part_two():
                             if re.match(r"[0-9]{9}", passport['pid']):
                                 valid_passports += 1
     print(valid_passports)
-
-
-part_one()
