@@ -1,9 +1,9 @@
 with open('input', 'r') as f:
     data_string = f.read().splitlines()
-    data = []
-    for line in data_string[1].split(','):
-        if line != 'x':
-            data.append(int(line))
+data = []
+for line in data_string[1].split(','):
+    if line != 'x':
+        data.append(int(line))
 
 
 def part_one():
