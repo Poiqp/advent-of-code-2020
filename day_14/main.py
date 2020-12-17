@@ -22,6 +22,7 @@ def part_one():
                 elif i[0] == 'X':
                     result += i[1]
             data[key] = int(result, 2)
+
     print(sum(data.values()))
 
 
