@@ -1,6 +1,6 @@
 import re
 
-with open('input', 'r') as f:
+with open('test_input', 'r') as f:
     data_string = f.read().splitlines()
 
 
@@ -12,6 +12,14 @@ for line in data_string:
     m = re.search(r'(\d+)-(\d+)\sor\s(\d+)-(\d+)', line)
     ranges.append([int(m[1]), int(m[2])])
     ranges.append([int(m[3]), int(m[4])])
+
+# fields
+fields = []
+for line in data_string:
+    if line == '':
+        break
+    m = re.search(r'(\d+)-(\d+)\sor\s(\d+)-(\d+)', line)
+    fields.append([int(m[1]), int(m[2]), int(m[3]), int(m[4])])
 
 # my ticket
 my_ticket = (data_string[data_string.index('your ticket:') + 1]).split(',')
@@ -40,7 +48,30 @@ def part_one():
 
 
 def part_two():
-    pass
+    domain_set = set()
+    for domain in ranges:
+        for i in range(domain[0], domain[1]+1):
+            domain_set.add(i)
+
+    for ticket in nearby_tickets:
+        for number in ticket:
+            if number not in domain_set:
+                nearby_tickets.remove(ticket)
+
+    possibilities = []
+    for i in range(0, len(nearby_tickets[0])):
+        possibilities.append([x for x in range(0, len(nearby_tickets[0]))])
+
+    # columns
+    for i in range(0, len(nearby_tickets[0])):
+        # numbers in tickets
+        for ticket in nearby_tickets:
+            for idx, field in enumerate(fields):
+                if not (field[0] <= ticket[i] <= field[1]) or (field[2] <= ticket[i] <= field[1]):
+                    print(possibilities[i], idx)
+                    possibilities[i].remove(idx)
+    print(possibilities)
 
 
 part_one()
+part_two()
